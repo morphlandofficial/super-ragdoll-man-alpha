@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: be63afc96689743429c53581de1e2ae1
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 161920
+  packageName: Low Poly Fire and Explosion
+  packageVersion: 2.0
+  assetPath: Assets/LowPolyParticleEffect/Shaders/ParticleSurfaceTransparent.shader
+  uploadId: 381810

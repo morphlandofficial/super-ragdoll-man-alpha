@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3cec0dc8c653a604aabf1b374ff4df37
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 161920
+  packageName: Low Poly Fire and Explosion
+  packageVersion: 2.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Fire/FlameThrowerLarge.prefab
+  uploadId: 381810

@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/_Title Screen.unity
+    guid: 2874aa10085ad4d3fb586751fa19358b
+  - enabled: 1
+    path: Assets/Scenes/Backrooms.unity
+    guid: cf0380f2e5e3c49bbb7e8f501e171025
+  - enabled: 1
+    path: Assets/Scenes/Bakery.unity
+    guid: 6d8c203eb61a34f69986163c00117f12
+  - enabled: 1
+    path: Assets/Scenes/Bath Time.unity
+    guid: a406e12bde56a4dd48ebeafb11ac28d1
+  - enabled: 1
+    path: Assets/Scenes/Castle Siege.unity
+    guid: a09e91190bf1b438b8b77ce8b3dcbdb2
+  - enabled: 1
+    path: Assets/Scenes/Cozy Room.unity
+    guid: dd91981750f314e6bbcd641387d4ffe2
+  - enabled: 1
+    path: Assets/Scenes/Dummy Factory.unity
+    guid: 8e55fac01ce994e2a966507922ba98d7
+  - enabled: 1
+    path: Assets/Scenes/Fairy Ring.unity
+    guid: 4710f263dc15d4d3e81f7553554e6b81
+  - enabled: 1
+    path: Assets/Scenes/Flat Empty Level.unity
+    guid: 4a3ba5d814bc94233814a2f2b1d2c352
+  - enabled: 1
+    path: Assets/Scenes/Flat Land.unity
+    guid: f2bca16e87d964114a63db9e683e3b5f
+  - enabled: 1
+    path: Assets/Scenes/Fork knife.unity
+    guid: a7e59967a0321433a95057921bee8d03
+  - enabled: 1
+    path: Assets/Scenes/Hall of Records.unity
+    guid: 476760b5a403c4d5584ef2dd5969d26c
+  - enabled: 1
+    path: Assets/Scenes/Insurrection.unity
+    guid: ed03d48aefcfc49669381a4d858cb142
+  - enabled: 1
+    path: Assets/Scenes/Koi Pond.unity
+    guid: 4a6f652ff01a34d7b88ddd3930cc9ff5
+  - enabled: 1
+    path: Assets/Scenes/Manhunt.unity
+    guid: d94be4fb045494cde8a0b5995938c9c1
+  - enabled: 1
+    path: Assets/Scenes/Mild Mild West.unity
+    guid: fc08d69b23e644edea42627a3e9ff6f1
+  - enabled: 1
+    path: Assets/Scenes/Snow Globe.unity
+    guid: 096ad09dc13f8464cbf24b393639eccb
+  - enabled: 1
+    path: Assets/Scenes/Squid Game.unity
+    guid: c07d619e3c02342baac70092038be76b
+  - enabled: 1
+    path: Assets/Scenes/Studio.unity
+    guid: dca652a81f6af4e6c8a89a81861c4c1a
+  - enabled: 1
+    path: Assets/Scenes/The Level About Nothing.unity
+    guid: 38053df4fd3144677a8149a1d5de5ca5
+  - enabled: 1
+    path: Assets/Scenes/The Void.unity
+    guid: 4cbe13c13c86d462f982b92c302e513f
+  - enabled: 1
+    path: Assets/Scenes/Tide Pool.unity
+    guid: fdadf115d5c20434d8152e103d67a182
+  - enabled: 1
+    path: Assets/Scenes/Train Hopping.unity
+    guid: 7dcd3261fbb5143f69555f1a5e0155c9
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: ac330ae3f67d8461392ef0a106fc814b
+  - enabled: 1
+    path: Assets/Scenes/Under Construction.unity
+    guid: 8836db28dbd1941c38259c0e85ab8269
+  - enabled: 1
+    path: Assets/Scenes/You Got a Stew Gon'.unity
+    guid: d96b8ce3af9184552924d697123a8762
+  - enabled: 1
+    path: Assets/Scenes/Ragdoll Race/_Race Level Select.unity
+    guid: 662c579384f594467b729c913c4d7426
+  - enabled: 1
+    path: Assets/Scenes/Ragdoll Race/Go Kart Circuit.unity
+    guid: c30c057a982e6417dac9eab9d1d25f25
+  - enabled: 1
+    path: Assets/Scenes/Track & Field/_Track & Field Level Select.unity
+    guid: 97f4dad49a62b4d2da054687463d1fde
+  - enabled: 1
+    path: Assets/Scenes/Track & Field/Obstacle Course.unity
+    guid: 424b107fe60f748daa541f63151f4c63
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: b4fcfaf1657d1fe419e089fd2c48839a,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0

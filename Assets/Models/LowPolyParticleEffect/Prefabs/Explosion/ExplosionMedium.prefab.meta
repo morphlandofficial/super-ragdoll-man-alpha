@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: df85828235f414d47a8fdf55e32c6187
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 161920
+  packageName: Low Poly Fire and Explosion
+  packageVersion: 2.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Explosion/ExplosionMedium.prefab
+  uploadId: 381810

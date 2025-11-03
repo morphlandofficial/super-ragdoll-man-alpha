@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8076276972585659104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329840011294214001}
+  - component: {fileID: 2058929111751493062}
+  m_Layer: 0
+  m_Name: AI Ragdoll Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1329840011294214001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076276972585659104}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 73.38, y: 1.777, z: -15.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058929111751493062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076276972585659104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollSkin: {fileID: 2100000, guid: 38ea2346dcec34670a8d74bfafe9ec46, type: 2}
+  canJump: 0
+  canRun: 1
+  runOnlyWhenChasing: 1
+  disableGrabbing: 0
+  contactKillsInstantly: 0
+  grabKillsPlayer: 1
+  grabsRequiredToKill: 1
+  grabKillDuration: 3.5
+  vignetteStartIntensity: 0.3
+  vignetteMaxIntensity: 1
+  walkSpeed: 2
+  runSpeedMultiplier: 2
+  jumpForce: 400
+  jumpCooldown: 0.3
+  jumpIfStuck: 0
+  stuckTimeThreshold: 2
+  airSteeringForce: 150
+  shouldRespawn: 1
+  staysDeadIfShot: 0
+  deathDelay: 3
+  awarenessType: 1
+  awarenessRadius: 12
+  awarenessLoseRadius: 15
+  awarenessVisionAngle: 90
+  awarenessVisionDistance: 15
+  aiRagdollPrefab: {fileID: 2630696904313664800, guid: f1e2d3c4b5a6978899aabbccddee1122,
+    type: 3}
+  spawnOffset: {x: 0, y: 0, z: 0}
+  useRotation: 1
+  spawnOnStart: 1
+  initialSpawnCount: 1
+  spawnAllAtOnce: 0
+  maxActiveRagdolls: 1
+  limitTotalSpawns: 1
+  maxTotalSpawns: 10
+  contactKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  grabKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  aiDeathSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  bulletHitSound: {fileID: 8300000, guid: 6397a7aaac68f451abd2b2a89f3ecb37, type: 3}
+  headshotSound: {fileID: 0}
+  deathMaterial: {fileID: 2100000, guid: 303bd93ea2cb0485b9d204f0625dc572, type: 2}
+  enableBulletImpactEffect: 1
+  bulletImpactEffectPrefab: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+    type: 3}
+  playerDetectionSound: {fileID: 8300000, guid: 089c7ffea460e4c7bb17ee697ef0a286,
+    type: 3}
+  impactSounds:
+  - {fileID: 8300000, guid: 2c894494e880c492194daaf61a2052c8, type: 3}
+  - {fileID: 8300000, guid: 4602a6654b7844a27a158ec95163fba8, type: 3}
+  - {fileID: 8300000, guid: 73cf11357ce194f1392493c95889ed08, type: 3}
+  - {fileID: 8300000, guid: b47a22c67c3114b7faed85b280f2c0f8, type: 3}
+  - {fileID: 8300000, guid: 445b98b48a0024bd1a8912a04ffe4e38, type: 3}
+  jumpSounds:
+  - {fileID: 8300000, guid: 780505e5ad53d42dbaa19ef8f9cfebf9, type: 3}
+  landingSounds: []
+  windSound: {fileID: 0}
+  ragdollLoopSound: {fileID: 0}
+  aiMode: 0
+  idlePaceRadius: 1.68
+  idleWaitTime: 2
+  idleVisionConeAngle: 90
+  roamWaitTime: 2
+  pathWaypoints:
+  - {x: -20.6, y: 3.61, z: -23.11}
+  pathReachedDistance: 1
+  returnToStartAndStop: 0
+  loopPathForever: 0
+  numberOfCycles: 0
+  endAtFinishTrigger: 0
+  pathThenAttackEnabled: 0
+  respawnAtLastPathPoint: 0
+  pathThenAttackDetectionRadius: 12
+  pathThenAttackLoseRadius: 15
+  pathOneWayThenBehaviorSwitch: 0
+  pathFinalBehaviorMode: 0
+  targetObject: {fileID: 2630696904313664800, guid: d1490865bde5f41d8abc9636b73dfff1,
+    type: 3}
+  alwaysKnowPlayerPosition: 1
+  homingStopDistance: 0.1
+  grabPlayerInHomingMode: 1
+  armExtendDistance: 5
+  exploreThenAttackDetectionRadius: 12
+  exploreThenAttackLoseRadius: 15
+  roamThenAttackDetectionRadius: 12
+  roamThenAttackLoseRadius: 15
+  idleThenAttackDetectionRange: 15
+  idleThenAttackReturnDistance: 1
+  gapCheckDistance: 3
+  gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmoSize: 1

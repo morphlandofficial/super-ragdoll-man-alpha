@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2630696904313664800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445894760639520914}
+  - component: {fileID: 2222222222222222222}
+  m_Layer: 0
+  m_Name: AI Ragdoll
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445894760639520914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630696904313664800}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2222222222222222222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630696904313664800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCostumeIndex: 0
+  selectedCostumeName: SquidGame Guard Square Face
+  ragdollSkin: {fileID: 0}
+  canJump: 1
+  canRun: 1
+  runOnlyWhenChasing: 0
+  disableGrabbing: 0
+  contactKillsInstantly: 0
+  grabKillsPlayer: 1
+  grabsRequiredToKill: 1
+  grabKillDuration: 5
+  vignetteStartIntensity: 0.3
+  vignetteMaxIntensity: 1
+  walkSpeed: 2
+  runSpeedMultiplier: 2
+  jumpForce: 400
+  jumpCooldown: 0.3
+  jumpIfStuck: 0
+  stuckTimeThreshold: 2
+  airSteeringForce: 150
+  shouldRespawn: 1
+  staysDeadIfShot: 0
+  deathDelay: 1
+  shotsToKill: 1
+  awarenessType: 1
+  awarenessRadius: 12
+  awarenessLoseRadius: 15
+  awarenessVisionAngle: 90
+  awarenessVisionDistance: 15
+  aiRagdollPrefab: {fileID: 2630696904313664800, guid: f1e2d3c4b5a6978899aabbccddee1122,
+    type: 3}
+  spawnOffset: {x: 0, y: 0, z: 0}
+  useRotation: 1
+  spawnOnStart: 1
+  initialSpawnCount: 3
+  spawnAllAtOnce: 0
+  maxActiveRagdolls: 3
+  limitTotalSpawns: 0
+  maxTotalSpawns: 10
+  contactKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  grabKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  aiDeathSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  bulletHitSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  headshotSound: {fileID: 8300000, guid: 6397a7aaac68f451abd2b2a89f3ecb37, type: 3}
+  deathMaterial: {fileID: 2100000, guid: 303bd93ea2cb0485b9d204f0625dc572, type: 2}
+  enableBulletImpactEffect: 1
+  bulletImpactEffectPrefab: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+    type: 3}
+  playerDetectionSound: {fileID: 8300000, guid: 089c7ffea460e4c7bb17ee697ef0a286,
+    type: 3}
+  impactSounds: []
+  jumpSounds: []
+  landingSounds: []
+  windSound: {fileID: 0}
+  ragdollLoopSound: {fileID: 0}
+  aiMode: 2
+  idlePaceRadius: 2.5
+  idleWaitTime: 2
+  idleVisionConeAngle: 90
+  roamWaitTime: 3
+  pathWaypoints:
+  - {x: 0, y: 0, z: 0}
+  pathReachedDistance: 1
+  returnToStartAndStop: 0
+  loopPathForever: 0
+  numberOfCycles: 0
+  endAtFinishTrigger: 0
+  pathThenAttackEnabled: 0
+  respawnAtLastPathPoint: 0
+  pathThenAttackDetectionRadius: 12
+  pathThenAttackLoseRadius: 15
+  pathOneWayThenBehaviorSwitch: 0
+  pathFinalBehaviorMode: 2
+  targetObject: {fileID: 2630696904313664800, guid: d1490865bde5f41d8abc9636b73dfff1,
+    type: 3}
+  alwaysKnowPlayerPosition: 1
+  homingStopDistance: 0
+  grabPlayerInHomingMode: 1
+  armExtendDistance: 5
+  exploreThenAttackDetectionRadius: 50
+  exploreThenAttackLoseRadius: 50
+  roamThenAttackDetectionRadius: 50
+  roamThenAttackLoseRadius: 50
+  idleThenAttackDetectionRange: 50
+  idleThenAttackReturnDistance: 50
+  gapCheckDistance: 3
+  gizmoColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmoSize: 1

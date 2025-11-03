@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4a25399c68b5ade4da3a05302cdbd6d1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 161920
+  packageName: Low Poly Fire and Explosion
+  packageVersion: 2.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Fire/FlameRingWithParticle.prefab
+  uploadId: 381810

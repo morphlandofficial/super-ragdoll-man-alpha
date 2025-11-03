@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3ca187b17420d97438447e084a0174f7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 161920
+  packageName: Low Poly Fire and Explosion
+  packageVersion: 2.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Fire/FlamingTornadoLarge.prefab
+  uploadId: 381810
