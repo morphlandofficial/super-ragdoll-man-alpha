@@ -43,6 +43,9 @@ public class DefaultBehaviour : MonoBehaviour {
     [SerializeField] 
     [Tooltip("Maximum speed boost multiplier (e.g., 2.0 = double speed max)")]
     private float _maxSpeedBoostMultiplier = 2.5f;
+    [SerializeField]
+    [Tooltip("Maximum animation speed for feet (prevents animation from going too fast and losing traction)")]
+    private float _maxAnimationSpeed = 5.0f;
     private float _runningTimer = 0f;
     private float _speedBoostTimer = 0f;
     private float _currentSpeedBoostMultiplier = 1f;
@@ -329,7 +332,10 @@ public class DefaultBehaviour : MonoBehaviour {
             currentSpeed *= _currentSpeedBoostMultiplier; // Apply progressive boost
         }
         
-        _animationModule.Animator.SetFloat("speed", _movement.magnitude * currentSpeed);        
+        // Calculate animation speed and apply ceiling to prevent feet from going too fast
+        float animationSpeed = _movement.magnitude * currentSpeed;
+        animationSpeed = Mathf.Min(animationSpeed, _maxAnimationSpeed);
+        _animationModule.Animator.SetFloat("speed", animationSpeed);        
 
         float angleOffset = Vector2.SignedAngle(_movement, Vector2.up);
         Vector3 targetForward = Quaternion.AngleAxis(angleOffset, Vector3.up) * Auxiliary.GetFloorProjection(_aimDirection);
