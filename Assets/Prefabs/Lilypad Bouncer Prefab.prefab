@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1858396682642988528}
   - component: {fileID: 2352942008150527325}
   - component: {fileID: 8585600380097458567}
+  - component: {fileID: 2794103182585573770}
   m_Layer: 0
   m_Name: Lilypad Bouncer Prefab
   m_TagString: Untagged
@@ -91,6 +92,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2794103182585573770
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980847934983857677}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6930841368882909219, guid: 75e9f8c091bcd4a52abe527c70f4b46c, type: 3}
 --- !u!1 &4410682290960307250
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BouncePad
   useTriggerDetection: 0
-  bounceForce: 800
+  bounceForce: 4500
   bounceDirection: {x: 0, y: 1, z: 0}
   useLocalDirection: 1
   requireJumpToBounce: 0
