@@ -289,6 +289,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -910,6 +914,11 @@ PrefabInstance:
       propertyPath: selectedCostumeIndex
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 5260117373154476044, guid: b2a0eb456dfd145c59a870bd3479bdf3,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7667785103999663116, guid: b2a0eb456dfd145c59a870bd3479bdf3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -918,7 +927,7 @@ PrefabInstance:
     - target: {fileID: 7667785103999663116, guid: b2a0eb456dfd145c59a870bd3479bdf3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.99666
+      value: -47.136658
       objectReference: {fileID: 0}
     - target: {fileID: 7667785103999663116, guid: b2a0eb456dfd145c59a870bd3479bdf3,
         type: 3}
@@ -958,6 +967,11 @@ PrefabInstance:
     - target: {fileID: 7667785103999663116, guid: b2a0eb456dfd145c59a870bd3479bdf3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144649462564115221, guid: b2a0eb456dfd145c59a870bd3479bdf3,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8271004784608943847, guid: b2a0eb456dfd145c59a870bd3479bdf3,
@@ -1027,6 +1041,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -1342,6 +1360,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -1547,6 +1569,8 @@ MonoBehaviour:
   rotateBackAndForth: 0
   oscillationRange: 45
   oscillationSpeed: 1
+  useManualAnchorPoint: 0
+  manualAnchorPoint: {x: 0, y: 0, z: 0}
 --- !u!4 &398599751
 Transform:
   m_ObjectHideFlags: 0
@@ -1850,7 +1874,7 @@ PrefabInstance:
         type: 3}
       propertyPath: aiDeathSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: aiShootSound
@@ -1871,12 +1895,17 @@ PrefabInstance:
         type: 3}
       propertyPath: deathMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 0496529865b364ba7a19db87151a03f0, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a28036bf17314d47b1f3d1507556700, type: 2}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: headshotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: maxTotalSpawns
@@ -1905,7 +1934,7 @@ PrefabInstance:
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillDuration
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
@@ -1967,6 +1996,18 @@ PrefabInstance:
       propertyPath: pathFinalBehaviorMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletDamageEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+        type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletImpactEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: df85828235f414d47a8fdf55e32c6187,
+        type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: exploreThenAttackLoseRadius
@@ -2094,6 +2135,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -2398,7 +2443,7 @@ Transform:
   m_GameObject: {fileID: 512933052}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19, y: -29, z: -59.6}
+  m_LocalPosition: {x: 0.19, y: -49.14, z: -59.6}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2433,7 +2478,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512933052}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2503,6 +2548,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -3327,7 +3376,7 @@ PrefabInstance:
         type: 3}
       propertyPath: aiDeathSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: aiShootSound
@@ -3348,12 +3397,17 @@ PrefabInstance:
         type: 3}
       propertyPath: deathMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 0496529865b364ba7a19db87151a03f0, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a28036bf17314d47b1f3d1507556700, type: 2}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: headshotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: maxTotalSpawns
@@ -3382,7 +3436,7 @@ PrefabInstance:
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillDuration
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
@@ -3444,6 +3498,18 @@ PrefabInstance:
       propertyPath: pathFinalBehaviorMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletDamageEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+        type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletImpactEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: df85828235f414d47a8fdf55e32c6187,
+        type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: exploreThenAttackLoseRadius
@@ -3593,7 +3659,7 @@ PrefabInstance:
     - target: {fileID: 3266066066845455340, guid: 544214c0b532f437692581b854b2714c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -28.01
+      value: -48.15
       objectReference: {fileID: 0}
     - target: {fileID: 3266066066845455340, guid: 544214c0b532f437692581b854b2714c,
         type: 3}
@@ -3657,6 +3723,65 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 544214c0b532f437692581b854b2714c, type: 3}
+--- !u!1 &1025125458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1025125460}
+  - component: {fileID: 1025125459}
+  m_Layer: 0
+  m_Name: Level Goal Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1025125459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025125458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1fb864ea6f64f488e2419e1237a6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelGoalSettings
+  levelID: 
+  goalType: 0
+  bronzePhysicsThreshold: 1
+  silverPhysicsThreshold: 7500
+  goldPhysicsThreshold: 20000
+  bronzeTimeThreshold: 1
+  silverTimeThreshold: 1
+  goldTimeThreshold: 1
+  unlockScenesAtBronze:
+  - {fileID: 102900000, guid: 4cbe13c13c86d462f982b92c302e513f, type: 3}
+  unlockScenesAtSilver: []
+  unlockScenesAtGold: []
+  lastPhysicsScore: 0
+  lastTimeScore: 0
+  lastAchievement: 0
+--- !u!4 &1025125460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025125458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.07751, y: 0, z: -75.40012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1071948967
 GameObject:
   m_ObjectHideFlags: 0
@@ -3948,7 +4073,7 @@ PrefabInstance:
         type: 3}
       propertyPath: aiDeathSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: aiShootSound
@@ -3969,12 +4094,17 @@ PrefabInstance:
         type: 3}
       propertyPath: deathMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 0496529865b364ba7a19db87151a03f0, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a28036bf17314d47b1f3d1507556700, type: 2}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: headshotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: maxTotalSpawns
@@ -4003,7 +4133,7 @@ PrefabInstance:
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillDuration
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
@@ -4065,6 +4195,18 @@ PrefabInstance:
       propertyPath: pathFinalBehaviorMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletDamageEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+        type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletImpactEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: df85828235f414d47a8fdf55e32c6187,
+        type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: exploreThenAttackLoseRadius
@@ -5711,7 +5853,7 @@ PrefabInstance:
         type: 3}
       propertyPath: aiDeathSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: aiShootSound
@@ -5732,12 +5874,17 @@ PrefabInstance:
         type: 3}
       propertyPath: deathMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 0496529865b364ba7a19db87151a03f0, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a28036bf17314d47b1f3d1507556700, type: 2}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: headshotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: maxTotalSpawns
@@ -5766,7 +5913,7 @@ PrefabInstance:
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: grabKillDuration
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
@@ -5828,6 +5975,18 @@ PrefabInstance:
       propertyPath: pathFinalBehaviorMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletDamageEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+        type: 3}
+    - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
+        type: 3}
+      propertyPath: bulletImpactEffectPrefab
+      value: 
+      objectReference: {fileID: 4472293459428272497, guid: df85828235f414d47a8fdf55e32c6187,
+        type: 3}
     - target: {fileID: 2222222222222222222, guid: 5fb791f9079024117b970918c3633448,
         type: 3}
       propertyPath: exploreThenAttackLoseRadius
@@ -6953,6 +7112,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 1
   pauseBetweenCycles: 0
@@ -7730,3 +7893,4 @@ SceneRoots:
   - {fileID: 398599751}
   - {fileID: 2112553122}
   - {fileID: 1738003572}
+  - {fileID: 1025125460}

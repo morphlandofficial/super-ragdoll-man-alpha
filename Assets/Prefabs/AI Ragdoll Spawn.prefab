@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ragdollSkin: {fileID: 2100000, guid: 38ea2346dcec34670a8d74bfafe9ec46, type: 2}
+  selectedCostumeIndex: 0
+  selectedCostumeName: SquidGame Guard Square Face
+  ragdollSkin: {fileID: 0}
   canJump: 0
   canRun: 1
   runOnlyWhenChasing: 1
@@ -52,7 +54,7 @@ MonoBehaviour:
   contactKillsInstantly: 0
   grabKillsPlayer: 1
   grabsRequiredToKill: 1
-  grabKillDuration: 3.5
+  grabKillDuration: 1
   vignetteStartIntensity: 0.3
   vignetteMaxIntensity: 1
   walkSpeed: 2
@@ -65,6 +67,7 @@ MonoBehaviour:
   shouldRespawn: 1
   staysDeadIfShot: 0
   deathDelay: 3
+  shotsToKill: 1
   awarenessType: 1
   awarenessRadius: 12
   awarenessLoseRadius: 15
@@ -81,13 +84,16 @@ MonoBehaviour:
   limitTotalSpawns: 1
   maxTotalSpawns: 10
   contactKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
-  grabKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
-  aiDeathSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
-  bulletHitSound: {fileID: 8300000, guid: 6397a7aaac68f451abd2b2a89f3ecb37, type: 3}
-  headshotSound: {fileID: 0}
+  grabKillSound: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+  aiDeathSound: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
+  optimizeColliders: 1
+  bulletHitSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  headshotSound: {fileID: 8300000, guid: a161245e23f194412971933417935614, type: 3}
   deathMaterial: {fileID: 2100000, guid: 303bd93ea2cb0485b9d204f0625dc572, type: 2}
   enableBulletImpactEffect: 1
-  bulletImpactEffectPrefab: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+  bulletImpactEffectPrefab: {fileID: 4472293459428272497, guid: df85828235f414d47a8fdf55e32c6187,
+    type: 3}
+  bulletDamageEffectPrefab: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
     type: 3}
   playerDetectionSound: {fileID: 8300000, guid: 089c7ffea460e4c7bb17ee697ef0a286,
     type: 3}
@@ -101,6 +107,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 780505e5ad53d42dbaa19ef8f9cfebf9, type: 3}
   landingSounds: []
   windSound: {fileID: 0}
+  enableVerboseLogging: 0
   ragdollLoopSound: {fileID: 0}
   aiMode: 0
   idlePaceRadius: 1.68

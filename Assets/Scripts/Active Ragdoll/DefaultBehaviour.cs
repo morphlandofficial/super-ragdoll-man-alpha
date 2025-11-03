@@ -894,16 +894,9 @@ public class DefaultBehaviour : MonoBehaviour {
                 // Check if this was a headshot
                 bool isHeadshot = IsHeadshot(hit.collider, aiRagdoll);
                 
-                // Spawn explosion particle effect at impact point (if enabled on this AI)
-                if (aiRagdoll.enableBulletImpactEffect && aiRagdoll.bulletImpactEffectPrefab != null) {
-                    GameObject explosion = Instantiate(aiRagdoll.bulletImpactEffectPrefab, hit.point, Quaternion.identity);
-                    // Particle will auto-play on spawn, destroy after 1 second
-                    Destroy(explosion, 1f);
-                }
-                
-                // NEW DAMAGE SYSTEM: Use TakeDamage instead of instant death
-                // This allows for limb damage and bleed out mechanics
-                aiRagdoll.TakeDamage(hit.collider, isHeadshot);
+                // DAMAGE SYSTEM: TakeDamage handles particle effects based on kill vs damage
+                // Pass hit point so appropriate particle effect can be spawned
+                aiRagdoll.TakeDamage(hit.collider, isHeadshot, hit.point);
                 
                 // Award kill points ONLY on critical hits (death)
                 // Points are now awarded in the Respawn() method after actual death

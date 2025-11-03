@@ -263,8 +263,8 @@ MonoBehaviour:
   levelID: 
   goalType: 2
   bronzePhysicsThreshold: 0
-  silverPhysicsThreshold: 0
-  goldPhysicsThreshold: 0
+  silverPhysicsThreshold: 50
+  goldPhysicsThreshold: 500
   bronzeTimeThreshold: 0
   silverTimeThreshold: 0
   goldTimeThreshold: 0
@@ -7419,12 +7419,14 @@ MonoBehaviour:
   rotateY: 1
   rotateZ: 0
   reverseDirection: 0
-  rotationSpeed: 90
+  rotationSpeed: 110
   randomizeStartRotation: 0
   rotationSpace: 1
   rotateBackAndForth: 0
   oscillationRange: 45
   oscillationSpeed: 1
+  useManualAnchorPoint: 0
+  manualAnchorPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &3186847383219061880
 MonoBehaviour:
   m_ObjectHideFlags: 0

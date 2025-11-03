@@ -732,6 +732,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 0
   pauseBetweenCycles: 0
@@ -759,6 +763,8 @@ MonoBehaviour:
   rotateBackAndForth: 0
   oscillationRange: 45
   oscillationSpeed: 1
+  useManualAnchorPoint: 0
+  manualAnchorPoint: {x: 0, y: 0, z: 0}
 --- !u!135 &242542368
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2379,8 +2385,8 @@ MonoBehaviour:
   levelID: 
   goalType: 0
   bronzePhysicsThreshold: 1
-  silverPhysicsThreshold: 3000
-  goldPhysicsThreshold: 5000
+  silverPhysicsThreshold: 50
+  goldPhysicsThreshold: 500
   bronzeTimeThreshold: 1
   silverTimeThreshold: 90
   goldTimeThreshold: 60
@@ -6153,6 +6159,10 @@ MonoBehaviour:
   triggerMode: 2
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 0
   pauseBetweenCycles: 0

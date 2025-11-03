@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7944537562560340474, guid: f227f1f3b52a444618f3b0cd088a5818,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6689036041284674117, guid: f227f1f3b52a444618f3b0cd088a5818,
         type: 3}
       propertyPath: m_Name
@@ -61,6 +66,11 @@ PrefabInstance:
     - target: {fileID: 2774220344278030320, guid: f227f1f3b52a444618f3b0cd088a5818,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351058458732792086, guid: f227f1f3b52a444618f3b0cd088a5818,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -180,6 +190,8 @@ MonoBehaviour:
   rotateBackAndForth: 0
   oscillationRange: 45
   oscillationSpeed: 1
+  useManualAnchorPoint: 0
+  manualAnchorPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &341016426138125631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +214,10 @@ MonoBehaviour:
   triggerMode: 0
   useGripTrigger: 0
   gripTriggerMode: 3
+  launcherMode: 0
+  launcherReleaseThreshold: 0.9
+  useAcceleration: 0
+  accelerationTime: 2
   reverseDirection: 0
   randomizeStartPoint: 0
   pauseBetweenCycles: 0

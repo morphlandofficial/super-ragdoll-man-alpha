@@ -291,5 +291,29 @@ public class CollectibleFinishManager : MonoBehaviour
     {
         return allCollected;
     }
+    
+    /// <summary>
+    /// Get the number of collectibles collected so far
+    /// </summary>
+    public int GetCollectedCount()
+    {
+        return collectiblesCollected;
+    }
+    
+    /// <summary>
+    /// Get the total number of collectibles required to complete the level
+    /// </summary>
+    public int GetRequiredCount()
+    {
+        return actualRequiredCount;
+    }
+    
+    /// <summary>
+    /// Get the total number of collectibles available in the level
+    /// </summary>
+    public int GetTotalCount()
+    {
+        return totalCollectibles;
+    }
 }
 

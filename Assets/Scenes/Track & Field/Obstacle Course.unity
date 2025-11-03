@@ -433,8 +433,8 @@ MonoBehaviour:
   levelID: 
   goalType: 0
   bronzePhysicsThreshold: 1
-  silverPhysicsThreshold: 3000
-  goldPhysicsThreshold: 5000
+  silverPhysicsThreshold: 250
+  goldPhysicsThreshold: 1000
   bronzeTimeThreshold: 1
   silverTimeThreshold: 90
   goldTimeThreshold: 60

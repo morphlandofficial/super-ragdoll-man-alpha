@@ -200,18 +200,17 @@ public class RespawnablePlayer : MonoBehaviour
                         }
                         else
                         {
-                            // SINGLE-PLAYER: Check the ACTUAL component state (CameraVisualController has already applied level settings by now)
-                            bool pixelationCurrentlyEnabled = _pixelationEffect.enabled;
+                            // SINGLE-PLAYER: Check the LEVEL SETTINGS (source of truth from CameraVisualController)
                             bool levelSettingsSayEnabled = CameraVisualController.ShouldPixelationBeEnabled();
-                            _pixelationWasDisabled = !pixelationCurrentlyEnabled; // If currently disabled, keep it disabled on release
+                            _pixelationWasDisabled = !levelSettingsSayEnabled; // Respect level settings, not current component state
                             
                             if (_pixelationWasDisabled)
                             {
-                                Debug.Log($"<color=green>[RespawnPixel]</color> R1 HOLD START - Pixelation currently OFF (level settings: {levelSettingsSayEnabled}), will keep it OFF on release");
+                                Debug.Log($"<color=green>[RespawnPixel]</color> R1 HOLD START - Level settings have pixelation OFF, will keep it OFF on release");
                             }
                             else
                             {
-                                Debug.Log($"<color=green>[RespawnPixel]</color> R1 HOLD START - Pixelation currently ON (level settings: {levelSettingsSayEnabled}), will restore it ON on release");
+                                Debug.Log($"<color=green>[RespawnPixel]</color> R1 HOLD START - Level settings have pixelation ON, will restore it ON on release");
                             }
                         }
                     }

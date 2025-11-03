@@ -57,6 +57,13 @@ public class RagdollPointsCollector : MonoBehaviour
     
     private void OnEnable()
     {
+        // CRITICAL FIX: Only register if this is a PLAYER, not an AI ragdoll!
+        // AI ragdolls should NOT register with the points system (they would overwrite the player)
+        if (IsAIRagdoll())
+        {
+            return;
+        }
+        
         // MULTIPLAYER FIX: Register immediately when enabled
         // This ensures points tracking starts even if Start() timing is off
         RegisterWithPointsSystem();
@@ -64,38 +71,80 @@ public class RagdollPointsCollector : MonoBehaviour
     
     private void Start()
     {
-        // Initialize velocity tracking arrays and cache rigidbody count FIRST
-        if (_activeRagdoll.Rigidbodies != null)
+        // CRITICAL FIX: Skip everything if this is an AI ragdoll
+        if (IsAIRagdoll())
         {
-            _rigidbodyCount = _activeRagdoll.Rigidbodies.Length;
-            _previousVelocities = new Vector3[_rigidbodyCount];
-            _previousAngularVelocities = new Vector3[_rigidbodyCount];
-            
-            // Initialize with current velocities and setup collision listeners
-            for (int i = 0; i < _rigidbodyCount; i++)
-            {
-                Rigidbody rb = _activeRagdoll.Rigidbodies[i];
-                if (rb != null)
-                {
-                    _previousVelocities[i] = rb.linearVelocity;
-                    _previousAngularVelocities[i] = rb.angularVelocity;
-                    
-                    // Try to find existing listener first (may be pre-attached)
-                    CollisionListener listener = rb.gameObject.GetComponent<CollisionListener>();
-                    if (listener == null)
-                    {
-                        // Only add if not already present
-                        listener = rb.gameObject.AddComponent<CollisionListener>();
-                    }
-                    listener.OnCollisionDetected += HandleCollision;
-                    _collisionListeners.Add(listener);
-                }
-            }
+            enabled = false; // Disable the component entirely
+            return;
         }
+        
+        // Setup collision listeners after costume has been properly initialized
+        // This is called automatically for legacy spawns, but SpawnPoint will call it explicitly
+        SetupCollisionListeners();
         
         // Register with points system AFTER initialization
         // This is a backup in case OnEnable() registration didn't work
         RegisterWithPointsSystem();
+    }
+    
+    /// <summary>
+    /// Check if this is an AI ragdoll (should NOT accumulate physics points)
+    /// </summary>
+    private bool IsAIRagdoll()
+    {
+        // Check for RespawnableAIRagdoll component (definitive AI marker)
+        return GetComponent<RespawnableAIRagdoll>() != null;
+    }
+    
+    /// <summary>
+    /// Setup collision listeners on all rigidbodies (called after costume is ready)
+    /// PUBLIC so SpawnPoint can call this after costume switching
+    /// </summary>
+    public void SetupCollisionListeners()
+    {
+        // Skip if already initialized
+        if (_collisionListeners.Count > 0)
+        {
+            return;
+        }
+        
+        // Initialize velocity tracking arrays and cache rigidbody count FIRST
+        if (_activeRagdoll == null)
+        {
+            Debug.LogError($"<color=red>[PointsCollector]</color> ❌ _activeRagdoll is NULL! Cannot setup listeners!");
+            return;
+        }
+        
+        if (_activeRagdoll.Rigidbodies == null)
+        {
+            Debug.LogError($"<color=red>[PointsCollector]</color> ❌ _activeRagdoll.Rigidbodies is NULL! Cannot setup listeners!");
+            return;
+        }
+        
+        _rigidbodyCount = _activeRagdoll.Rigidbodies.Length;
+        _previousVelocities = new Vector3[_rigidbodyCount];
+        _previousAngularVelocities = new Vector3[_rigidbodyCount];
+        
+        // Initialize with current velocities and setup collision listeners
+        for (int i = 0; i < _rigidbodyCount; i++)
+        {
+            Rigidbody rb = _activeRagdoll.Rigidbodies[i];
+            if (rb != null)
+            {
+                _previousVelocities[i] = rb.linearVelocity;
+                _previousAngularVelocities[i] = rb.angularVelocity;
+                
+                // Try to find existing listener first (may be pre-attached)
+                CollisionListener listener = rb.gameObject.GetComponent<CollisionListener>();
+                if (listener == null)
+                {
+                    // Only add if not already present
+                    listener = rb.gameObject.AddComponent<CollisionListener>();
+                }
+                listener.OnCollisionDetected += HandleCollision;
+                _collisionListeners.Add(listener);
+            }
+        }
     }
     
     /// <summary>
@@ -106,7 +155,6 @@ public class RagdollPointsCollector : MonoBehaviour
         if (RagdollPointsSystem.Instance != null)
         {
             RagdollPointsSystem.Instance.RegisterCollector(this);
-            Debug.Log($"<color=cyan>[PointsCollector]</color> Registered {gameObject.name} with RagdollPointsSystem");
         }
         else
         {

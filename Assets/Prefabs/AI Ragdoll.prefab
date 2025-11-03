@@ -86,6 +86,7 @@ MonoBehaviour:
   contactKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
   grabKillSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
   aiDeathSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
+  optimizeColliders: 1
   bulletHitSound: {fileID: 8300000, guid: 88c4d19ad8cb64c81bc6fa171e920fa6, type: 3}
   headshotSound: {fileID: 8300000, guid: 6397a7aaac68f451abd2b2a89f3ecb37, type: 3}
   deathMaterial: {fileID: 2100000, guid: 303bd93ea2cb0485b9d204f0625dc572, type: 2}
@@ -98,6 +99,7 @@ MonoBehaviour:
   jumpSounds: []
   landingSounds: []
   windSound: {fileID: 0}
+  enableVerboseLogging: 0
   ragdollLoopSound: {fileID: 0}
   aiMode: 2
   idlePaceRadius: 2.5

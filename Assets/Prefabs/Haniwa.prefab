@@ -245,7 +245,7 @@ MonoBehaviour:
   affectTime: 1
   timeAmount: 20
   affectPoints: 1
-  pointsAmount: 25
+  pointsAmount: 100
   scaleDownSpeed: 3
   scaleDownDelay: 0
   collectSound: {fileID: 8300000, guid: 55c7c3b5b2eed40cfae940b1e8b3c03d, type: 3}

@@ -22,24 +22,27 @@ public class RespawnableAIRagdoll : MonoBehaviour
     public bool grabKillsPlayer = true;
     
     [Header("Audio")]
-    [Tooltip("Sound to play when this AI dies")]
+    [Tooltip("Sound to play when this AI dies from BODY SHOTS (not used for headshot deaths)")]
     public AudioClip deathSound;
     
     [Tooltip("Sound to play when this AI gets shot/hit by bullet (set by spawner)")]
     public AudioClip bulletHitSound;
     
-    [Tooltip("Sound to play when this AI gets headshot (set by spawner) - if null, uses bulletHitSound")]
+    [Tooltip("Sound to play when this AI gets headshot - instant kill (set by spawner) - if null, uses bulletHitSound")]
     public AudioClip headshotSound;
     
     [Header("Visual Effects")]
     [Tooltip("Material to apply when this AI dies (set by spawner)")]
     public Material deathMaterial;
     
-    [Tooltip("Enable particle effect when shot (set by spawner)")]
+    [Tooltip("Enable particle effects when shot (set by spawner)")]
     public bool enableBulletImpactEffect = true;
     
-    [Tooltip("Particle effect prefab to spawn at bullet impact point (set by spawner)")]
+    [Tooltip("Particle effect for KILLING BLOW (e.g. explosion) - spawned at bullet impact point on death")]
     public GameObject bulletImpactEffectPrefab;
+    
+    [Tooltip("Particle effect for DAMAGE (non-lethal hits) - spawned at bullet impact point when ragdoll survives")]
+    public GameObject bulletDamageEffectPrefab;
     
     private AudioSource _audioSource;
     private bool _hasRespawned = false; // Prevent duplicate respawn calls
@@ -55,6 +58,7 @@ public class RespawnableAIRagdoll : MonoBehaviour
     // HEALTH SYSTEM
     private int _currentHealth = 1; // Current health points
     private int _maxHealth = 1; // Maximum health (shots to kill)
+    private bool _wasHeadshot = false; // Track if the killing blow was a headshot
     
     private void Start()
     {
@@ -78,9 +82,9 @@ public class RespawnableAIRagdoll : MonoBehaviour
     }
 
     /// <summary>
-    /// SIMPLIFIED DAMAGE SYSTEM: Each hit = 1 damage, any body part
+    /// DAMAGE SYSTEM: Headshots = instant kill, body shots = 1 damage
     /// </summary>
-    public void TakeDamage(Collider hitCollider, bool isHeadshot)
+    public void TakeDamage(Collider hitCollider, bool isHeadshot, Vector3 hitPoint)
     {
         // Already dead or respawning
         if (_hasRespawned)
@@ -89,17 +93,67 @@ public class RespawnableAIRagdoll : MonoBehaviour
             return;
         }
         
-        // Reduce health by 1
-        _currentHealth--;
-        
-        // Play bullet hit sound
-        PlayBulletHitSound(isHeadshot);
-        
-        // Check if health reached 0
-        if (_currentHealth <= 0)
+        // HEADSHOT = INSTANT KILL (regardless of remaining health)
+        if (isHeadshot)
         {
-            // Die immediately
-            Respawn();
+            _wasHeadshot = true;
+            _currentHealth = 0; // Set health to 0 for instant kill
+            
+            // Spawn KILL particle effect (explosion)
+            SpawnKillEffect(hitPoint);
+            
+            // Play headshot sound
+            PlayBulletHitSound(true);
+            
+            // Die immediately - killed by player shooting
+            Respawn(true); // Pass true to award points
+        }
+        else
+        {
+            // BODY SHOT = 1 damage
+            _currentHealth--;
+            
+            // Play bullet hit sound
+            PlayBulletHitSound(false);
+            
+            // Check if health reached 0
+            if (_currentHealth <= 0)
+            {
+                // Spawn KILL particle effect (explosion)
+                SpawnKillEffect(hitPoint);
+                
+                // Die from body shots - killed by player shooting
+                Respawn(true); // Pass true to award points
+            }
+            else
+            {
+                // Spawn DAMAGE particle effect (non-lethal hit)
+                SpawnDamageEffect(hitPoint);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Spawn kill particle effect (explosion) at hit point
+    /// </summary>
+    private void SpawnKillEffect(Vector3 hitPoint)
+    {
+        if (enableBulletImpactEffect && bulletImpactEffectPrefab != null)
+        {
+            GameObject explosion = Instantiate(bulletImpactEffectPrefab, hitPoint, Quaternion.identity);
+            Destroy(explosion, 1f);
+        }
+    }
+    
+    /// <summary>
+    /// Spawn damage particle effect (non-lethal) at hit point
+    /// </summary>
+    private void SpawnDamageEffect(Vector3 hitPoint)
+    {
+        if (enableBulletImpactEffect && bulletDamageEffectPrefab != null)
+        {
+            GameObject damageEffect = Instantiate(bulletDamageEffectPrefab, hitPoint, Quaternion.identity);
+            Destroy(damageEffect, 1f);
         }
     }
     
@@ -107,7 +161,8 @@ public class RespawnableAIRagdoll : MonoBehaviour
     /// Triggers a respawn - destroys this ragdoll and tells the spawner to create a new one
     /// UNLESS in Red Light Green Light mode, where bodies stay on the field
     /// </summary>
-    public void Respawn()
+    /// <param name="killedByPlayer">If true, awards points to the player (shot by player). If false, no points (environmental death)</param>
+    public void Respawn(bool killedByPlayer = false)
     {
         // Prevent duplicate respawn calls (Destroy is not immediate)
         if (_hasRespawned)
@@ -118,12 +173,15 @@ public class RespawnableAIRagdoll : MonoBehaviour
         // Mark as respawned immediately to prevent duplicate calls
         _hasRespawned = true;
         
-        // Award kill points when actually dying
-        RagdollPointsSystem pointsSystem = RagdollPointsSystem.Instance;
-        if (pointsSystem != null)
+        // Award kill points ONLY if killed by player shooting
+        if (killedByPlayer)
         {
-            // Simple point award - no headshot bonus in simplified system
-            pointsSystem.AddKillPoints(false);
+            RagdollPointsSystem pointsSystem = RagdollPointsSystem.Instance;
+            if (pointsSystem != null)
+            {
+                // Award points with headshot bonus if applicable
+                pointsSystem.AddKillPoints(_wasHeadshot);
+            }
         }
         
         // Notify Battle Royale Manager of kill (use cached reference)
@@ -166,8 +224,8 @@ public class RespawnableAIRagdoll : MonoBehaviour
                 spawner.CacheLastWaypoint(aiController.GetCurrentWaypointIndex());
             }
             
-            // Play death sound if available
-            if (deathSound != null && _audioSource != null)
+            // Play death sound ONLY for body shot deaths (headshot already has its impact sound)
+            if (deathSound != null && _audioSource != null && !_wasHeadshot && killedByPlayer)
             {
                 // Play sound at this position (detached from the object)
                 AudioSource.PlayClipAtPoint(deathSound, transform.position);
@@ -349,6 +407,7 @@ public class RespawnableAIRagdoll : MonoBehaviour
         _maxHealth = Mathf.Max(1, health); // Minimum 1 health
         _currentHealth = _maxHealth; // Start at full health
         _hasRespawned = false; // Reset respawn flag (in case of GameObject reuse)
+        _wasHeadshot = false; // Reset headshot flag for new spawn
     }
     
     /// <summary>

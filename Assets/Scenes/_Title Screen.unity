@@ -1110,8 +1110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.98, y: 2.44, z: 5}
-  m_Center: {x: 0.05, y: 0.57, z: -0.55}
+  m_Size: {x: 0.83, y: 2.04, z: 5}
+  m_Center: {x: 0.05, y: 0.88, z: -0.55}
 --- !u!114 &130540917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4734,7 +4734,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.35, y: 2.44, z: 5}
+  m_Size: {x: 1.14, y: 2.44, z: 5}
   m_Center: {x: 0.0000019073486, y: 0.57, z: -0.55}
 --- !u!114 &523606913
 MonoBehaviour:
@@ -13548,6 +13548,7 @@ GameObject:
   - component: {fileID: 1752479190}
   - component: {fileID: 1752479192}
   - component: {fileID: 1752479193}
+  - component: {fileID: 1752479194}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -13927,6 +13928,21 @@ MonoBehaviour:
   logInterval: 3
   fpsWarningCooldown: 2
   enableDetailedCounting: 1
+--- !u!114 &1752479194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752479189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b66e86939484f3aa3b69342e872d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RenderScaleManager
+  renderScale: 0.5
+  applyOnStart: 1
+  saveSettings: 1
 --- !u!1 &1757815248
 GameObject:
   m_ObjectHideFlags: 0

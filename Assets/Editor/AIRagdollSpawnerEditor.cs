@@ -522,9 +522,10 @@ public class AIRagdollSpawnerEditor : Editor
             spawner.deathMaterial = (Material)EditorGUILayout.ObjectField(new GUIContent("Death Material", "Material to apply to AI when it dies (e.g., red unlit material)"), spawner.deathMaterial, typeof(Material), false);
             
             EditorGUILayout.Space(3);
-            spawner.enableBulletImpactEffect = EditorGUILayout.Toggle(new GUIContent("Enable Bullet Impact Effect", "Enable particle effect when this AI gets shot by player"), spawner.enableBulletImpactEffect);
+            spawner.enableBulletImpactEffect = EditorGUILayout.Toggle(new GUIContent("Enable Bullet Impact Effects", "Enable particle effects when this AI gets shot by player"), spawner.enableBulletImpactEffect);
             EditorGUI.BeginDisabledGroup(!spawner.enableBulletImpactEffect);
-            spawner.bulletImpactEffectPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet Impact Effect Prefab", "Particle effect prefab to spawn at bullet impact point"), spawner.bulletImpactEffectPrefab, typeof(GameObject), false);
+            spawner.bulletImpactEffectPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet Impact Effect Prefab (KILL)", "Particle effect for KILLING BLOW (e.g., explosion) - spawned when AI dies"), spawner.bulletImpactEffectPrefab, typeof(GameObject), false);
+            spawner.bulletDamageEffectPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet Damage Effect Prefab", "Particle effect for DAMAGE (non-lethal hits) - spawned when AI survives"), spawner.bulletDamageEffectPrefab, typeof(GameObject), false);
             EditorGUI.EndDisabledGroup();
             
             EditorGUI.indentLevel--;

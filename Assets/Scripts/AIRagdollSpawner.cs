@@ -184,11 +184,14 @@ public class AIRagdollSpawner : MonoBehaviour
     [Tooltip("Material to apply to AI when it dies (optional - e.g., red unlit material)")]
     public Material deathMaterial;
     
-    [Tooltip("Enable particle effect when this AI gets shot by player")]
+    [Tooltip("Enable particle effects when this AI gets shot by player")]
     public bool enableBulletImpactEffect = true;
     
-    [Tooltip("Particle effect prefab to spawn at bullet impact point (optional)")]
+    [Tooltip("Particle effect for KILLING BLOW (e.g., explosion) - spawned at bullet impact point on death (optional)")]
     public GameObject bulletImpactEffectPrefab;
+    
+    [Tooltip("Particle effect for DAMAGE (non-lethal hits) - spawned at bullet impact point when ragdoll survives (optional)")]
+    public GameObject bulletDamageEffectPrefab;
     
     [Header("AI Behavior Sounds")]
     [Tooltip("Sound to play when AI detects/notices the player (3D spatial) - plays once per detection")]
@@ -682,6 +685,7 @@ public class AIRagdollSpawner : MonoBehaviour
         // Set bullet impact effect settings on RespawnableAIRagdoll
         respawnable.enableBulletImpactEffect = enableBulletImpactEffect;
         respawnable.bulletImpactEffectPrefab = bulletImpactEffectPrefab;
+        respawnable.bulletDamageEffectPrefab = bulletDamageEffectPrefab;
         
         // Configure movement characteristics via DefaultBehaviour
         DefaultBehaviour defaultBehaviour = newRagdoll.GetComponent<DefaultBehaviour>();

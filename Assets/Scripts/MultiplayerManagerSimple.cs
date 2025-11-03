@@ -668,6 +668,14 @@ public class MultiplayerManagerSimple : MonoBehaviour
                 {
                     timeRewind.RefreshCostumeReferences();
                 }
+                
+                // CRITICAL: Setup collision listeners AFTER costume is fully initialized
+                var pointsCollector = newPlayer.GetComponent<RagdollPointsCollector>();
+                if (pointsCollector != null)
+                {
+                    pointsCollector.SetupCollisionListeners();
+                    Debug.Log($"[Multiplayer] 💥 Setup collision listeners for Player {playerIndex + 1} physics points");
+                }
             }
             else
             {

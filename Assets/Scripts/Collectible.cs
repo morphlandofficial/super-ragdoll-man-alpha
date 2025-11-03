@@ -55,6 +55,7 @@ public class Collectible : MonoBehaviour
     private bool isScalingDown = false;
     private float scaleDownTimer = 0f;
     private Vector3 originalScale;
+    private Transform rootTransform; // The root object to scale
     private TimerDisplayText timerReference;
     private RagdollPointsSystem pointsSystem;
     
@@ -66,8 +67,11 @@ public class Collectible : MonoBehaviour
     
     private void Awake()
     {
-        // Store original scale
-        originalScale = transform.localScale;
+        // Find the root transform (top-most parent)
+        rootTransform = transform.root;
+        
+        // Store original scale of the ROOT object
+        originalScale = rootTransform.localScale;
         
         // Ensure rigidbody is kinematic (so it doesn't fall)
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -117,12 +121,23 @@ public class Collectible : MonoBehaviour
             float scaleFactor = 1f - ((scaleDownTimer - scaleDownDelay) * scaleDownSpeed);
             scaleFactor = Mathf.Max(0f, scaleFactor);
             
-            transform.localScale = originalScale * scaleFactor;
+            // Scale the ROOT object (not this object)
+            if (rootTransform != null)
+            {
+                rootTransform.localScale = originalScale * scaleFactor;
+            }
             
-            // Destroy when fully scaled down
+            // Destroy the ROOT when fully scaled down
             if (scaleFactor <= 0f)
             {
-                Destroy(gameObject);
+                if (rootTransform != null)
+                {
+                    Destroy(rootTransform.gameObject);
+                }
+                else
+                {
+                    Destroy(gameObject); // Fallback if no root
+                }
             }
         }
     }

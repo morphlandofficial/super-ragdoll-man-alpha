@@ -43,10 +43,10 @@ public class RagdollPointsSystem : MonoBehaviour
     
     [Header("--- KILL POINTS ---")]
     [Tooltip("Points awarded for killing an AI ragdoll (set to 0 to disable)")]
-    [SerializeField] private float _killPoints = 100f;
+    [SerializeField] private float _killPoints = 25f;
     
     [Tooltip("Bonus points for headshot kills (added on top of kill points)")]
-    [SerializeField] private float _headshotBonusPoints = 50f;
+    [SerializeField] private float _headshotBonusPoints = 25f;
     
     [Header("--- TIME REWIND PENALTY ---")]
     [SerializeField] private float _timeRewindPointsPerSecond = 5f;
@@ -58,7 +58,7 @@ public class RagdollPointsSystem : MonoBehaviour
     
     [Header("--- RESPAWN PENALTY ---")]
     [SerializeField] private bool _enableRespawnPenalty = true;
-    [SerializeField] private float _respawnPenaltyAmount = 1000f;
+    [SerializeField] private float _respawnPenaltyAmount = 50f;
     [Tooltip("Points deducted when a respawn is detected (new collector replaces old one)")]
     
     [Header("--- POINT LIMITS ---")]
@@ -165,7 +165,6 @@ public class RagdollPointsSystem : MonoBehaviour
             if (!isFirstSpawn && _enableRespawnPenalty && !isManualRespawn)
             {
                 _currentPoints -= _respawnPenaltyAmount;
-                Debug.Log($"<color=yellow>[PointsSystem]</color> Applied respawn penalty: -{_respawnPenaltyAmount}");
             }
             
             _currentCollector = collector;
@@ -173,13 +172,6 @@ public class RagdollPointsSystem : MonoBehaviour
             _spawnBufferRemaining = _spawnBufferTime;
             _speedStreakTime = 0f; // Reset streak on respawn
             _currentSpeedStreakMultiplier = 1f;
-            
-            string spawnType = isFirstSpawn ? " (FIRST SPAWN)" : " (RESPAWN)";
-            Debug.Log($"<color=green>[PointsSystem]</color> Collector registered{spawnType} - Spawn buffer: {_spawnBufferTime}s, Points frozen: {_pointsFrozen}");
-        }
-        else
-        {
-            Debug.Log($"<color=yellow>[PointsSystem]</color> Collector re-registered (same instance) - ignoring duplicate registration");
         }
     }
     
@@ -191,12 +183,21 @@ public class RagdollPointsSystem : MonoBehaviour
         if (_pointsFrozen)
         {
             _pointsPerSecond = 0f;
+            // Only log occasionally to avoid spam
+            if (Time.frameCount % 120 == 0) // Every 2 seconds at 60fps
+            {
+                Debug.Log($"<color=red>[PointsSystem]</color> ❄️ Points are FROZEN - not accumulating");
+            }
             return;
         }
         
         // Check if we have an active collector
         if (_currentCollector == null || !_currentCollector.gameObject.activeInHierarchy)
         {
+            if (Time.frameCount % 120 == 0) // Every 2 seconds at 60fps
+            {
+                Debug.Log($"<color=yellow>[PointsSystem]</color> ⚠️ No active collector found, searching...");
+            }
             FindActiveCollector();
             if (_currentCollector == null)
             {
@@ -206,14 +207,7 @@ public class RagdollPointsSystem : MonoBehaviour
         }
         
         // Check spawn buffer - no points during buffer period
-        float previousBufferRemaining = _spawnBufferRemaining;
         _spawnBufferRemaining = Mathf.Max(0f, _spawnBufferTime - (Time.time - _collectorSpawnTime));
-        
-        // Log when buffer expires (only once)
-        if (previousBufferRemaining > 0f && _spawnBufferRemaining <= 0f)
-        {
-            Debug.Log($"<color=green>[PointsSystem]</color> Spawn buffer EXPIRED - points tracking NOW ACTIVE!");
-        }
         
         if (_spawnBufferRemaining > 0f)
         {
@@ -307,6 +301,12 @@ public class RagdollPointsSystem : MonoBehaviour
         _pointsPerSecond = totalPoints;
         _currentPoints += totalPoints * deltaTime;
         _totalPointsEarned += Mathf.Max(0f, totalPoints * deltaTime);
+        
+        // Debug log occasionally to show points are being calculated
+        if (Time.frameCount % 120 == 0 && totalPoints > 0.1f) // Every 2 seconds at 60fps, and only if actually earning points
+        {
+            Debug.Log($"<color=green>[PointsSystem]</color> 💰 Calculating points! Speed: {speed:F2}, Impact: {impactForce:F2}, Total pts/sec: {totalPoints:F2}, Current total: {_currentPoints:F0}");
+        }
     }
     
     // All calculation methods moved to RagdollPointsCollector

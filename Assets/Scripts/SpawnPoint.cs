@@ -181,6 +181,17 @@ public class SpawnPoint : MonoBehaviour
                 Debug.Log("<color=green>[SpawnPoint]</color> ⏪ Refreshed time rewind references");
         }
         
+        // CRITICAL: Setup collision listeners AFTER costume is fully initialized
+        // This ensures physics points tracking works from the very first spawn
+        var pointsCollector = currentPlayer.GetComponent<RagdollPointsCollector>();
+        if (pointsCollector != null)
+        {
+            pointsCollector.SetupCollisionListeners();
+            
+            if (_debugMode)
+                Debug.Log("<color=green>[SpawnPoint]</color> 💥 Setup collision listeners for physics points");
+        }
+        
         // Apply race mode setting to spawned player
         if (enableRaceMode)
         {
