@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Cozy Room.unity
     guid: dd91981750f314e6bbcd641387d4ffe2
   - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 334292f8343014b669aa1007851bb021
+  - enabled: 1
     path: Assets/Scenes/Dummy Factory.unity
     guid: 8e55fac01ce994e2a966507922ba98d7
   - enabled: 1

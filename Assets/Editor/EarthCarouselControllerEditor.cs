@@ -10,7 +10,7 @@ public class EarthCarouselControllerEditor : Editor
 {
     private int currentPlanetIndex = 0;
     private Transform[] planetChildren;
-    private Vector3 originalParentPosition;
+    private Vector3 firstPlanetWorldPosition; // Store the world position of the first planet
     private bool isInitialized = false;
     
     private void OnEnable()
@@ -37,8 +37,28 @@ public class EarthCarouselControllerEditor : Editor
             planetChildren[i] = parent.GetChild(i);
         }
         
-        // Store the original parent position (where planet 0 is centered)
-        originalParentPosition = parent.position;
+        // Get the stored reference position from the component
+        SerializedProperty storedRefProp = serializedObject.FindProperty("storedReferencePosition");
+        SerializedProperty hasStoredRefProp = serializedObject.FindProperty("hasStoredReference");
+        
+        if (hasStoredRefProp != null && hasStoredRefProp.boolValue)
+        {
+            // Use the stored reference position
+            firstPlanetWorldPosition = storedRefProp.vector3Value;
+            Debug.Log($"[Editor] Using stored reference position: {firstPlanetWorldPosition}");
+        }
+        else if (planetChildren.Length > 0 && planetChildren[0] != null)
+        {
+            // Initialize from first planet
+            firstPlanetWorldPosition = planetChildren[0].position;
+            
+            // Store it in the component
+            storedRefProp.vector3Value = firstPlanetWorldPosition;
+            hasStoredRefProp.boolValue = true;
+            serializedObject.ApplyModifiedProperties();
+            
+            Debug.Log($"[Editor] Initialized and stored first planet '{planetChildren[0].name}' world position: {firstPlanetWorldPosition}");
+        }
         
         isInitialized = true;
     }
@@ -83,6 +103,10 @@ public class EarthCarouselControllerEditor : Editor
         
         // Header
         EditorGUILayout.LabelField("Edit Mode Planet Navigation", EditorStyles.boldLabel);
+        
+        // Show stored reference position
+        EditorGUILayout.LabelField($"Reference Position: {firstPlanetWorldPosition}", EditorStyles.miniLabel);
+        
         EditorGUILayout.HelpBox($"Currently viewing: Planet {currentPlanetIndex + 1}/{planetChildren.Length} ({planetChildren[currentPlanetIndex].name})", MessageType.Info);
         
         // Navigation buttons
@@ -103,10 +127,34 @@ public class EarthCarouselControllerEditor : Editor
         EditorGUILayout.EndHorizontal();
         
         // Reset to first planet button
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Reset to First Planet", GUILayout.Height(25)))
         {
             GoToPlanet(controller, 0);
         }
+        
+        if (GUILayout.Button("Re-Store Reference Position", GUILayout.Height(25)))
+        {
+            // Re-store the first planet's current position as the reference
+            if (planetChildren.Length > 0 && planetChildren[0] != null)
+            {
+                firstPlanetWorldPosition = planetChildren[0].position;
+                
+                // Save to the component's serialized fields
+                SerializedProperty storedRefProp = serializedObject.FindProperty("storedReferencePosition");
+                SerializedProperty hasStoredRefProp = serializedObject.FindProperty("hasStoredReference");
+                
+                storedRefProp.vector3Value = firstPlanetWorldPosition;
+                hasStoredRefProp.boolValue = true;
+                serializedObject.ApplyModifiedProperties();
+                
+                Debug.Log($"[Editor] Re-stored first planet '{planetChildren[0].name}' world position: {firstPlanetWorldPosition}");
+                EditorUtility.DisplayDialog("Reference Updated", 
+                    $"First planet position stored as:\n{firstPlanetWorldPosition}\n\nThis is now the reference point for all planets.\n\nThis value is saved in the scene.", 
+                    "OK");
+            }
+        }
+        EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.Space(5);
         
@@ -202,36 +250,32 @@ public class EarthCarouselControllerEditor : Editor
             return;
         }
         
-        // Get the invert direction setting from the serialized property
-        SerializedProperty invertDirectionProp = serializedObject.FindProperty("invertDirection");
-        bool invertDirection = invertDirectionProp != null && invertDirectionProp.boolValue;
+        Transform targetPlanet = planetChildren[planetIndex];
+        if (targetPlanet == null)
+        {
+            Debug.LogError($"[Editor] Target planet {planetIndex} is null!");
+            return;
+        }
         
-        Debug.Log($"[Editor] Moving to planet {planetIndex + 1}. Invert Direction: {invertDirection}");
+        // Calculate how to move parent so targetPlanet appears at firstPlanetWorldPosition
+        // Current world position of target planet
+        Vector3 currentTargetWorldPos = targetPlanet.position;
         
-        // Calculate target position (same logic as runtime)
-        Vector3 firstChildLocalPos = planetChildren[0].localPosition;
-        Vector3 targetChildLocalPos = planetChildren[planetIndex].localPosition;
-        float offsetFromFirst = targetChildLocalPos.x - firstChildLocalPos.x;
+        // How far is the target planet from where it should be (firstPlanetWorldPosition)?
+        Vector3 offset = currentTargetWorldPos - firstPlanetWorldPosition;
         
-        Debug.Log($"[Editor] First child local X: {firstChildLocalPos.x}, Target child local X: {targetChildLocalPos.x}, Offset: {offsetFromFirst}");
-        Debug.Log($"[Editor] Original parent position: {originalParentPosition}");
+        // Move the parent by the negative of that offset
+        Vector3 newParentPosition = controller.transform.position - offset;
         
-        // Set parent position
-        Vector3 targetPosition = originalParentPosition;
-        if (invertDirection)
-            targetPosition.x = originalParentPosition.x + offsetFromFirst;
-        else
-            targetPosition.x = originalParentPosition.x - offsetFromFirst;
-        
-        Debug.Log($"[Editor] Target position: {targetPosition}, Current position: {controller.transform.position}");
+        // Debug logging (optional)
+        // Debug.Log($"[Editor] Moving to planet {planetIndex + 1} ({targetPlanet.name})");
+        // Debug.Log($"[Editor] Reference: {firstPlanetWorldPosition}, Target: {currentTargetWorldPos}, Offset: {offset}");
         
         // Record undo so user can undo the position change
         Undo.RecordObject(controller.transform, $"Cycle to Planet {planetIndex + 1}");
         
         // Apply the position
-        controller.transform.position = targetPosition;
-        
-        Debug.Log($"[Editor] Position applied. New position: {controller.transform.position}");
+        controller.transform.position = newParentPosition;
         
         // Mark the scene as dirty so changes are saved
         EditorUtility.SetDirty(controller.transform);
