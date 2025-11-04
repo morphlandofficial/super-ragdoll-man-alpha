@@ -10,70 +10,91 @@ NC='\033[0m' # No Color
 GITHUB_REPO="https://github.com/morphlandofficial/super-ragdoll-man-alpha.git"
 
 echo -e "${BLUE}================================${NC}"
-echo -e "${BLUE}  PROJECT BACKUP TO GITHUB${NC}"
+echo -e "${BLUE}   BACKUP GAME TO GITHUB${NC}"
 echo -e "${BLUE}================================${NC}"
 echo ""
 
 # Navigate to the directory where this script is located
 cd "$(dirname "$0")"
 
-# Get the project folder name
 PROJECT_NAME=$(basename "$(pwd)")
 echo -e "${BLUE}Project: ${NC}$PROJECT_NAME"
 echo ""
 
-# Check if .git folder exists, if not, initialize and connect to GitHub
+# First time setup - clone from GitHub if needed
 if [ ! -d ".git" ]; then
-    echo -e "${YELLOW}Setting up Git connection...${NC}"
-    git init
-    git remote add origin "$GITHUB_REPO"
+    echo -e "${YELLOW}First time setup...${NC}"
+    echo -e "${BLUE}Downloading existing backups from GitHub...${NC}"
     
-    echo -e "${BLUE}Downloading existing backup history from GitHub...${NC}"
-    git fetch origin
+    # Clone the repo into a temp folder
+    cd ..
+    TEMP_CLONE="temp_clone_$$"
+    git clone "$GITHUB_REPO" "$TEMP_CLONE" 2>/dev/null
     
-    # Check if we have changes compared to GitHub
-    echo -e "${BLUE}Syncing with GitHub...${NC}"
-    git checkout -b main
-    git branch --set-upstream-to=origin/main main
-    
-    echo -e "${GREEN}✓ Connected to GitHub!${NC}"
+    # Move .git folder into our game folder
+    if [ -d "$TEMP_CLONE/.git" ]; then
+        mv "$TEMP_CLONE/.git" "$PROJECT_NAME/.git"
+        rm -rf "$TEMP_CLONE"
+        cd "$PROJECT_NAME"
+        echo -e "${GREEN}✓ Connected to GitHub!${NC}"
+        echo -e "${YELLOW}Your local files will be backed up as a new version.${NC}"
+    else
+        # No repo exists yet, create new one
+        cd "$PROJECT_NAME"
+        git init
+        git remote add origin "$GITHUB_REPO"
+        git checkout -b main
+        echo -e "${GREEN}✓ Created new backup repository!${NC}"
+    fi
     echo ""
 fi
 
-# Check if there are any changes
-if [[ -z $(git status -s) ]]; then
-    echo -e "${YELLOW}No changes detected. Nothing to backup!${NC}"
+# Sync with GitHub to get latest backups first
+echo -e "${BLUE}Syncing with GitHub...${NC}"
+git fetch origin main 2>/dev/null
+if git rev-parse origin/main >/dev/null 2>&1; then
+    # Try to merge remote changes
+    git merge origin/main --no-edit -m "Sync with GitHub" 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo -e "${YELLOW}Note: Using local version for any conflicts${NC}"
+        git merge --abort 2>/dev/null
+        # Use local files for conflicts (prefer ours)
+        git merge origin/main -X ours --no-edit -m "Sync with GitHub" 2>/dev/null
+    fi
+fi
+echo ""
+
+# Check for changes
+echo -e "${BLUE}Checking for changes...${NC}"
+git add -A
+
+# Check if there's anything to commit
+if git diff --staged --quiet; then
+    echo -e "${YELLOW}No changes detected - everything is already backed up!${NC}"
     echo ""
     echo "Press Enter to close..."
     read
     exit 0
 fi
 
-# Show what's being backed up
-echo -e "${BLUE}Files changed:${NC}"
-git status -s
+echo -e "${GREEN}✓ Found changes to backup${NC}"
 echo ""
 
-# Add all changes
-echo -e "${BLUE}Adding files...${NC}"
-git add .
-echo ""
-
-# Ask for update notes
-echo -e "${YELLOW}What did you change? (Describe your updates)${NC}"
+# Ask for backup notes
+echo -e "${YELLOW}What did you work on today?${NC}"
 echo -n "> "
-read UPDATE_NOTES
+read NOTES
 
-# If they didn't type anything, use a default message
-if [ -z "$UPDATE_NOTES" ]; then
-    TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
-    COMMIT_MESSAGE="Auto backup: $TIMESTAMP"
+# If they didn't type anything, use timestamp
+if [ -z "$NOTES" ]; then
+    TIMESTAMP=$(date "+%Y-%m-%d %H:%M")
+    COMMIT_MESSAGE="Backup: $TIMESTAMP"
 else
-    COMMIT_MESSAGE="$UPDATE_NOTES"
+    COMMIT_MESSAGE="$NOTES"
 fi
 
 echo ""
-echo -e "${BLUE}Creating save point...${NC}"
+echo -e "${BLUE}Creating backup entry...${NC}"
 git commit -m "$COMMIT_MESSAGE"
 
 # Push to GitHub
@@ -81,17 +102,17 @@ echo ""
 echo -e "${BLUE}Uploading to GitHub...${NC}"
 git push -u origin main
 
-# Check if push was successful
+# Check if successful
 if [ $? -eq 0 ]; then
     echo ""
     echo -e "${GREEN}================================${NC}"
-    echo -e "${GREEN}✓ SUCCESS!${NC}"
-    echo -e "${GREEN}Your project is backed up!${NC}"
+    echo -e "${GREEN}✓ BACKUP COMPLETE!${NC}"
+    echo -e "${GREEN}Your game is saved to GitHub!${NC}"
     echo -e "${GREEN}================================${NC}"
 else
     echo ""
     echo -e "${RED}================================${NC}"
-    echo -e "${RED}✗ UPLOAD FAILED${NC}"
+    echo -e "${RED}✗ BACKUP FAILED${NC}"
     echo -e "${RED}Check the error above${NC}"
     echo -e "${RED}================================${NC}"
 fi
@@ -99,4 +120,3 @@ fi
 echo ""
 echo "Press Enter to close..."
 read
-# Test change
